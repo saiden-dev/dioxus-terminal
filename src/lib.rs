@@ -18,14 +18,28 @@
 //!
 //! ```ignore
 //! use dioxus::prelude::*;
-//! use dioxus_terminal::Terminal;
+//! use dioxus_terminal::{Terminal, Theme};
 //!
 //! fn app() -> Element {
 //!     rsx! {
+//!         // Simple: just a shell command
 //!         Terminal {
-//!             command: "bash",
-//!             rows: 24,
-//!             cols: 80,
+//!             shell: "ls -la",
+//!         }
+//!
+//!         // With theme
+//!         Terminal {
+//!             shell: "htop",
+//!             theme: Theme::nord(),
+//!         }
+//!
+//!         // Full control
+//!         Terminal {
+//!             command: "ssh",
+//!             args: vec!["user@host".to_string()],
+//!             theme: Theme::zinc(),
+//!             rows: 30,
+//!             cols: 120,
 //!         }
 //!     }
 //! }
@@ -34,12 +48,14 @@
 mod error;
 mod pty;
 mod term;
+mod theme;
 mod widget;
 
 pub use error::Error;
 pub use pty::Pty;
 pub use term::{Cell, Color, Grid, Style};
-pub use widget::{Terminal, TerminalProps};
+pub use theme::Theme;
+pub use widget::{Terminal, TerminalProps, DEFAULT_FONT_FAMILY};
 
 /// Result type for dioxus-terminal operations
 pub type Result<T> = std::result::Result<T, Error>;

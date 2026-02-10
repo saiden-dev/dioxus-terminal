@@ -25,34 +25,74 @@ dioxus-terminal = "0.1"
 
 ```rust
 use dioxus::prelude::*;
-use dioxus_terminal::Terminal;
+use dioxus_terminal::{Terminal, Theme};
 
 fn app() -> Element {
     rsx! {
+        // Simple: run a shell command
         Terminal {
-            command: "bash",
-            rows: 24,
-            cols: 80,
+            shell: "ls -la",
+        }
+
+        // With a theme
+        Terminal {
+            shell: "htop",
+            theme: Theme::nord(),
         }
     }
 }
 ```
 
+## Themes
+
+Built-in themes:
+
+| Theme | Description |
+|-------|-------------|
+| `Theme::dark()` | Default - black background (default) |
+| `Theme::zinc()` | Tailwind zinc-900/zinc-200 |
+| `Theme::slate()` | Tailwind slate-900/slate-200 |
+| `Theme::nord()` | Nord color scheme |
+| `Theme::dracula()` | Dracula color scheme |
+| `Theme::monokai()` | Monokai color scheme |
+| `Theme::gruvbox()` | Gruvbox dark |
+| `Theme::catppuccin()` | Catppuccin Mocha |
+| `Theme::one_dark()` | Atom One Dark |
+| `Theme::tokyo_night()` | Tokyo Night |
+| `Theme::github_dark()` | GitHub Dark |
+| `Theme::solarized_dark()` | Solarized Dark |
+| `Theme::solarized_light()` | Solarized Light |
+| `Theme::light()` | Light theme |
+
 ## Customization
 
 ```rust
-use dioxus_terminal::{Terminal, Color};
+use dioxus_terminal::{Terminal, Theme, Color};
 
 rsx! {
+    // Use a preset theme
     Terminal {
         command: "/bin/zsh",
         args: vec!["-l".to_string()],
+        theme: Theme::catppuccin(),
         rows: 30,
         cols: 120,
-        font_size: 16,
-        font_family: "JetBrains Mono",
-        background: Color::new(30, 30, 30),
-        foreground: Color::new(220, 220, 220),
+    }
+
+    // Override theme colors
+    Terminal {
+        shell: "bash",
+        theme: Theme::dark(),
+        background: Color::new(30, 30, 30),  // overrides theme bg
+    }
+
+    // Custom theme
+    Terminal {
+        shell: "fish",
+        theme: Theme::new(
+            Color::new(20, 20, 30),   // background
+            Color::new(200, 200, 220), // foreground
+        ),
     }
 }
 ```
