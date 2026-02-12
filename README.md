@@ -1,4 +1,8 @@
 # dioxus-terminal
+<hr/>
+<img width="1319" height="477" alt="Screenshot 2026-02-12 at 03 58 28" src="https://github.com/user-attachments/assets/794fcff9-8307-4306-9283-8c998d816e24" />
+
+<hr/>
 
 Terminal emulator widget for [Dioxus](https://dioxuslabs.com/) desktop applications.
 
